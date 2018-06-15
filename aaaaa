@@ -1,0 +1,5 @@
+    Material *m[5];
+    for(int i=0;i<5;i++){
+        m[i] = new Material;
+    }
+    loadMTL(m,"1.mtl");

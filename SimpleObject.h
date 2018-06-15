@@ -2,6 +2,9 @@
 #include "Vec3f.h"
 #include <vector>
 #include <stdio.h>
+#include <vector>
+#include <string>
+#include "loadMTL.h"
 
 namespace SimpleOBJ
 {
@@ -41,6 +44,8 @@ namespace SimpleOBJ
         bool Parse(FILE* fp);
         bool CheckParse(int nVertices,std::vector<Array<int,3> > & vecTriangles);
 
+        std::vector<std::string> mtl;
+        std::vector<int> mtlb;
 
         int             m_nVertices;
         int             m_nTriangles;
@@ -50,6 +55,8 @@ namespace SimpleOBJ
         Array<int,3>*   m_pTriangleList;
         Array<int,3>*   m_pTextureList;
         Array<int,3>*   m_pNormalList;
+        char MTLFileName[16];
+        std::vector<Material*> material;
     };
 
 }

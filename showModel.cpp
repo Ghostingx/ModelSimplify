@@ -281,7 +281,7 @@ void GLUTKeyboard(unsigned char key, int x, int y)
 
             Method* method=new Method;
             Simplify* simplify=new Simplify(OBJ[operation_times-1],method);
-            float rate = 0.3;
+            float rate = 0.6;
             int now=OBJ[operation_times-1]->m_nTriangles;
             int goal=now*rate;
             simplify->times=0;
@@ -412,7 +412,7 @@ int ParseArgs(int argc, char **argv,char * &filename,char * &texture)
 
 	// Check filename
 	if (!filename || print_usage) {
-		printf("Usage: off -m sim|sub <filename>\n");
+		printf("Usage: %s -t texture_file <filename>\n",argv[0]);
 		return 0;
 	}
 

@@ -92,6 +92,7 @@ namespace SimpleOBJ
         norTriangles.clear();
         int lineNumber = 0;
 
+        char name[16];
         while(fscanf(fp, "%s", buf) != EOF)
         {
             lineNumber ++;
@@ -201,7 +202,7 @@ namespace SimpleOBJ
                         tIndices[0] = t;
                         nIndices[0] = n;
                         if( fscanf(fp, "%d/%d/%d", &vIndices[1], &tIndices[1], &nIndices[1]) ==3 &&
-                            fscanf(fp, "%d/%d/%d", &vIndices[2], &tIndices[1], &nIndices[2]) ==3 )
+                            fscanf(fp, "%d/%d/%d", &vIndices[2], &tIndices[2], &nIndices[2]) ==3 )
                         {
                             nTriangles++;
                             vecTriangles.push_back(vIndices);
@@ -254,10 +255,25 @@ namespace SimpleOBJ
                 break;
 
             default:
+                if(memcmp(buf,"usemtl",6) == 0){
+                    fscanf(fp,"%s",name);
+                    mtl.push_back(name);
+                    mtlb.push_back(vecTriangles.size());
+                }
+                if(memcmp(buf,"mtllib",6) == 0){
+                    fscanf(fp,"%s",name);
+                    memcpy(MTLFileName,name,strlen(name));
+                }
                 fgets(buf, sizeof(buf), fp);
                 break;
             }
+
         }
+
+        mtlb.push_back(vecTriangles.size());
+
+        if(strlen(MTLFileName) > 0)
+            loadMTL(material,MTLFileName);
 
         if(CheckParse(vecVertices.size(),vecTriangles))
         {
